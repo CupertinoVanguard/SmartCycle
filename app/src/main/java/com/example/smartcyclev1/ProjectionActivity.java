@@ -39,7 +39,7 @@ public class ProjectionActivity extends AppCompatActivity implements AdapterView
         Set<String> defaults = new HashSet<String>();
         Set<String> values = sharedPreferences.getStringSet("All the classifications", defaults);
         Object[] arrayedValues = values.toArray();
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayedValues); //ArrayAdapter.createFromResource(this, R.array.planets_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayedValues);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         for (int i = 0; i < arrayedValues.length; i++){
