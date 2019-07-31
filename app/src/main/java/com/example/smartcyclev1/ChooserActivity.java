@@ -18,7 +18,7 @@ public class ChooserActivity extends AppCompatActivity {
     SearchView searchView;
 
     List<DiffMaterialFactory> lister = new ArrayList<DiffMaterialFactory>();
-    String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Wood", "Cotton", "Wool","Rubber", "Other"};
+    static String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Wood", "Cotton", "Wool","Rubber", "Other"};
     int[] diffPhotoNums = {R.drawable.plastic, R.drawable.metal, R.drawable.glass, R.drawable.wood, R.drawable.cotton, R.drawable.wool, R.drawable.rubber, R.drawable.other};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class ChooserActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.searchfiler, menu);
         final MenuItem seaarchBar = menu.findItem(R.id.search);
         searchView = (SearchView)seaarchBar.getActionView();
-        ((EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.white));
+        ((EditText)searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.color_primary_variant));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {

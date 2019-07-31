@@ -1,7 +1,9 @@
 package com.example.smartcyclev1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -23,13 +25,16 @@ import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class SecondActivity extends AppCompatActivity {
     Button confirmNext;
     Button takePic;
     ImageView imageView;
     TextView textView;
+    static HashMap<String, Float> vals = new HashMap<>();
     List<String> completeList = new ArrayList<String>();
     private static final int cameraRequest = 1888;
     String finalResults = "";
@@ -57,7 +62,12 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(SecondActivity.resutlsIntent);
             }
         });
+        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Set keys = vals.keySet();
+        editor.putStringSet("All the classifications", keys);
 
+        editor.apply();
     }
 
     @Override
@@ -79,7 +89,9 @@ public class SecondActivity extends AppCompatActivity {
             public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
                 String a = "";
                 for (int i = 0; i < firebaseVisionImageLabels.size(); i++){
-                    String b = firebaseVisionImageLabels.get(i).getText() + " " + firebaseVisionImageLabels.get(i).getConfidence();
+                    String text = firebaseVisionImageLabels.get(i).getText(); float confidence = firebaseVisionImageLabels.get(i).getConfidence();
+                    SecondActivity.vals.put(text, confidence);
+                    String b = text + " " + confidence;
                     if (i != firebaseVisionImageLabels.size() - 1){
                         a += b + ", ";
                     }

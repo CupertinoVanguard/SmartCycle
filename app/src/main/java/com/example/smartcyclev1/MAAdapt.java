@@ -2,6 +2,7 @@ package com.example.smartcyclev1;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class MAAdapt extends RecyclerView.Adapter<MAAdapt.HolderView>{
                 Intent intent = new Intent(context, ProjectionActivity.class);
                 intent.putExtra("materialClicked", lister.get(i).getName());
                 intent.putExtra("results", str);
+
                 context.startActivity(intent);
                 Toast.makeText(context, "click on " + lister.get(i).getName(), Toast.LENGTH_LONG).show();
             }
