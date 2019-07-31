@@ -61,7 +61,5 @@ public class ProjectionActivity extends AppCompatActivity implements AdapterView
 
     }
 
-    private boolean returnRecyclingResutl(String firstParse, int i, String secondParse){
-        return true;
-    }
+
 }
