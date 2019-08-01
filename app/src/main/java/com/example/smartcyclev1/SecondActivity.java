@@ -59,23 +59,22 @@ public class SecondActivity extends AppCompatActivity {
         confirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                StringBuilder sb = new StringBuilder();
+                Object[] array = SecondActivity.vals.keySet().toArray();
+                for (int i = 0; i < array.length; i++){
+                    sb.append(array[i].toString()).append(",");
+                }
+                SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("All the classifications", sb.toString());
+                editor.apply();
                 startActivity(SecondActivity.resutlsIntent);
             }
         });
-        StringBuilder sb = new StringBuilder();
-        Object[] array = SecondActivity.vals.keySet().toArray();
-        for (int i = 0; i < array.length; i++){
-            sb.append(array[i].toString()).append(",");
-        }
-        if (array.length == 0){
-            confirmNext.setText("Bruh it did not even store em ya dig");
-        }
+
+
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("All the classifications", sb.toString());
-        editor.apply();
+
     }
 
     @Override
