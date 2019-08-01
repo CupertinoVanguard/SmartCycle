@@ -2,6 +2,7 @@ package com.example.smartcyclev1;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,17 +36,30 @@ public class ProjectionActivity extends AppCompatActivity implements AdapterView
         spinner = (Spinner)findViewById(R.id.spinner);
 
         String stringer = "";
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        Set<String> defaults = new HashSet<String>();
-        Set<String> values = sharedPreferences.getStringSet("All the classifications", defaults);
+        SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences();
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        stringer = sharedPreferences.getString("All the classifications", "The bois");
+        String[] newValues = stringer.split(",");
+        /*
         Object[] arrayedValues = values.toArray();
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, arrayedValues);
+        String[] fullArray = new String[arrayedValues.length];
+        for (int j = 0; j < arrayedValues.length; j++){
+            fullArray[j] = arrayedValues[j].toString();
+        }*/
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newValues);
+
+
+               // new ArrayAdapter.createFromResource(this,
+               // R.array.planets_array, android.R.layout.simple_spinner_item);//new ArrayAdapter(this, android.R.layout.simple_spinner_item, fullArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        for (int i = 0; i < arrayedValues.length; i++){
-            stringer += arrayedValues[i].toString() + "/n";
+        spinner.setOnItemSelectedListener(this);
+        if (stringer.length() == 0){
+            txtView2.setText("It is 0");
+        }else {
+            txtView2.setText(stringer);
         }
-        txtView2.setText(stringer);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -62,11 +63,18 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(SecondActivity.resutlsIntent);
             }
         });
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        StringBuilder sb = new StringBuilder();
+        Object[] array = SecondActivity.vals.keySet().toArray();
+        for (int i = 0; i < array.length; i++){
+            sb.append(array[i].toString()).append(",");
+        }
+        if (array.length == 0){
+            confirmNext.setText("Bruh it did not even store em ya dig");
+        }
+        //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set keys = vals.keySet();
-        editor.putStringSet("All the classifications", keys);
-
+        editor.putString("All the classifications", sb.toString());
         editor.apply();
     }
 
