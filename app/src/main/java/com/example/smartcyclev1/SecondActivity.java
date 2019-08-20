@@ -11,10 +11,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.room.Room;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-public class SecondActivity extends AppCompatActivity {
+public class SecondActivity extends Activity {
     Button confirmNext;
     Button takePic;
     ImageView imageView;
@@ -40,6 +45,12 @@ public class SecondActivity extends AppCompatActivity {
     private static final int cameraRequest = 1888;
     String finalResults = "";
     static Intent resutlsIntent;
+    ListView resultsList;
+    static String[] array;
+    static String[] confidenceArray;
+    static ArrayAdapter<String> arrayAdapter;
+    static ImageRecogDatabase database;
+    static ImageRecogDAO databaseDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +58,8 @@ public class SecondActivity extends AppCompatActivity {
         confirmNext = findViewById(R.id.button2);
         takePic = findViewById(R.id.button3);
         imageView = findViewById(R.id.imageView);
-        textView = findViewById(R.id.textView);
+        resultsList = (ListView)findViewById(R.id.simpleListView);
+
         takePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,25 +68,43 @@ public class SecondActivity extends AppCompatActivity {
                 //getBaseContext().startActivity(SecondActivity.resutlsIntent);
             }
         });
+
+
         confirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuilder sb = new StringBuilder();
-                Object[] array = SecondActivity.vals.keySet().toArray();
-                for (int i = 0; i < array.length; i++){
-                    sb.append(array[i].toString()).append(",");
+                if (contains(array, "Metal") == -1) {
+                    StringBuilder sb = new StringBuilder();
+                    Object[] array = SecondActivity.vals.keySet().toArray();
+                    for (int i = 0; i < array.length; i++){
+                        sb.append(array[i].toString()).append(",");
+                    }
+                    SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("All the classifications", sb.toString());
+                    editor.apply();
+                    database.close();
+                    startActivity(SecondActivity.resutlsIntent);
+                }else{
+                    Intent a = new Intent(getBaseContext(), ProjectionActivity.class);
+                    a.putExtra("Main Indicator Found", array[contains(array, "Metal")]);
+                    database.close();
+                    startActivity(a);
                 }
-                SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("All the classifications", sb.toString());
-                editor.apply();
-                startActivity(SecondActivity.resutlsIntent);
             }
         });
 
 
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+    }
+    public int contains(String[] array, String a){
+        for (int i = 0; i < array.length; i++){
+            if (array[i].equals(a)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
@@ -95,10 +125,20 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<FirebaseVisionImageLabel> firebaseVisionImageLabels) {
                 String a = "";
+                SecondActivity.array = new String[firebaseVisionImageLabels.size()];
+                SecondActivity.confidenceArray = new String[firebaseVisionImageLabels.size()];
+                database = Room.inMemoryDatabaseBuilder(getBaseContext(), ImageRecogDatabase.class).build();
+                databaseDAO = database.imgDAO();
                 for (int i = 0; i < firebaseVisionImageLabels.size(); i++){
                     String text = firebaseVisionImageLabels.get(i).getText(); float confidence = firebaseVisionImageLabels.get(i).getConfidence();
                     SecondActivity.vals.put(text, confidence);
+                    ImageRecogObject thing = new ImageRecogObject();
+                    thing.confidenceLevel = confidence;
+                    thing.imageType = text;
+                    SecondActivity.databaseDAO.insertAll(thing);
                     String b = text + " " + confidence;
+                    array[i] = text;
+                    confidenceArray[i] = confidence + "";
                     if (i != firebaseVisionImageLabels.size() - 1){
                         a += b + ", ";
                     }
@@ -106,9 +146,11 @@ public class SecondActivity extends AppCompatActivity {
                         a += b;
                     }
                 }
-                textView.setText(a);
+
                 SecondActivity.resutlsIntent = new Intent(getBaseContext(), ChooserActivity.class);
                 SecondActivity.resutlsIntent.putExtra("results", a);
+                SecondActivity.arrayAdapter = new ArrayAdapter<String>(getBaseContext(), R.layout.activity_list_view, R.id.textViewList, SecondActivity.array);
+                resultsList.setAdapter(arrayAdapter);
             }
         })
                 .addOnFailureListener(new OnFailureListener() {

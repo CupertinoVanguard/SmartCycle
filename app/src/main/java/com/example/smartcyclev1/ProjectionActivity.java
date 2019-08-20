@@ -1,5 +1,6 @@
 package com.example.smartcyclev1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -16,7 +17,7 @@ import org.w3c.dom.Text;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ProjectionActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ProjectionActivity extends Activity implements AdapterView.OnItemSelectedListener {
     private TextView txtView;
     private TextView txtView2;
     private TextView txtView3;

@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFB37A24"
     tools:context=".ChooserActivity">
     <android.support.v7.widget.RecyclerView
         android:id = "@+id/listshow"
         android:layout_width="match_parent"
         android:layout_height = "match_parent"
         android:fadeScrollbars="true"
+        android:outlineAmbientShadowColor="@color/pure_black"
         />
 </android.support.constraint.ConstraintLayout>

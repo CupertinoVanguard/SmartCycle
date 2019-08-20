@@ -1,5 +1,6 @@
 package com.example.smartcyclev1;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChooserActivity extends AppCompatActivity {
+public class ChooserActivity extends Activity {
     RecyclerView listshower;
     MAAdapt adapter;
     SearchView searchView;
