@@ -22,15 +22,16 @@ public class ProjectionActivity extends Activity implements AdapterView.OnItemSe
     private TextView txtView2;
     private TextView txtView3;
     private Spinner spinner;
-    private String[] diffObjects;
+    private String[] diffObjects = {"Plastic", "Metal", "Glass", "Wood", "Cotton", "Wool","Rubber", "Other"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projection);
         String givenArg = getIntent().getExtras().getString("materialClicked");
+        String bois = getIntent().getExtras().getString("Main Indicator Found");
         String resultsArg = getIntent().getExtras().getString("results");
         txtView = (TextView)findViewById(R.id.textView2);
-        txtView.setText(givenArg);
+        txtView.setText(bois);
         txtView2 = (TextView)findViewById(R.id.textView3);
 
         txtView3 = (TextView)findViewById(R.id.textView4);
@@ -48,7 +49,7 @@ public class ProjectionActivity extends Activity implements AdapterView.OnItemSe
         for (int j = 0; j < arrayedValues.length; j++){
             fullArray[j] = arrayedValues[j].toString();
         }*/
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, newValues);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, diffObjects);
 
 
                // new ArrayAdapter.createFromResource(this,

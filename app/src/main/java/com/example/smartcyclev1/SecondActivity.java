@@ -127,7 +127,7 @@ public class SecondActivity extends Activity {
                 String a = "";
                 SecondActivity.array = new String[firebaseVisionImageLabels.size()];
                 SecondActivity.confidenceArray = new String[firebaseVisionImageLabels.size()];
-                database = Room.inMemoryDatabaseBuilder(getBaseContext(), ImageRecogDatabase.class).build();
+                database = Room.inMemoryDatabaseBuilder(getApplicationContext(), ImageRecogDatabase.class).allowMainThreadQueries().build();
                 databaseDAO = database.imgDAO();
                 for (int i = 0; i < firebaseVisionImageLabels.size(); i++){
                     String text = firebaseVisionImageLabels.get(i).getText(); float confidence = firebaseVisionImageLabels.get(i).getConfidence();
