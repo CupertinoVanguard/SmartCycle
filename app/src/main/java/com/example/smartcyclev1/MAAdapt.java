@@ -3,6 +3,7 @@ package com.example.smartcyclev1;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,10 +20,12 @@ public class MAAdapt extends RecyclerView.Adapter<MAAdapt.HolderView>{
     private List<DiffMaterialFactory> lister;
     private Context context;
     private String str;
-    public MAAdapt(List<DiffMaterialFactory> l, Context c, String str){
+    private boolean thinker;
+    public MAAdapt(List<DiffMaterialFactory> l, Context c, String str, boolean thinker){
         lister = l;
         context = c;
         this.str = str;
+        this.thinker = thinker;
     }
     @Override
     public HolderView onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -37,12 +40,15 @@ public class MAAdapt extends RecyclerView.Adapter<MAAdapt.HolderView>{
         holderView.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ProjectionActivity.class);
-                intent.putExtra("materialClicked", lister.get(i).getName());
-                intent.putExtra("results", str);
-
-                context.startActivity(intent);
-                Toast.makeText(context, "click on " + lister.get(i).getName(), Toast.LENGTH_LONG).show();
+                if ((ImageRecogDatabase.getInstance().imgDAO().findByName("Musical instrument") != null && (lister.get(i).getName() != "Metal")) || (ImageRecogDatabase.getInstance().imgDAO().findByName("Musical instrument") != null && (lister.get(i).getName() != "Other"))){
+                    Toast.makeText(context, "Can't be " + lister.get(i).getName() +". Click another option", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent(context, ProjectClassV2.class);
+                    intent.putExtra("materialClicked", lister.get(i).getName());
+                    intent.putExtra("results", str);
+                    context.startActivity(intent);
+                    Toast.makeText(context, "click on " + lister.get(i).getName(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

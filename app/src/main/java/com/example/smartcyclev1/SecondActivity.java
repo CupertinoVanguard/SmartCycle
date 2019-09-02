@@ -49,8 +49,6 @@ public class SecondActivity extends Activity {
     static String[] array;
     static String[] confidenceArray;
     static ArrayAdapter<String> arrayAdapter;
-    static ImageRecogDatabase database;
-    static ImageRecogDAO databaseDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,20 +81,17 @@ public class SecondActivity extends Activity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("All the classifications", sb.toString());
                     editor.apply();
-                    database.close();
+
                     startActivity(SecondActivity.resutlsIntent);
                 }else{
                     Intent a = new Intent(getBaseContext(), ProjectionActivity.class);
                     a.putExtra("Main Indicator Found", array[contains(array, "Metal")]);
-                    database.close();
+
                     startActivity(a);
                 }
             }
         });
-
-
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
     }
     public int contains(String[] array, String a){
         for (int i = 0; i < array.length; i++){
@@ -127,15 +122,22 @@ public class SecondActivity extends Activity {
                 String a = "";
                 SecondActivity.array = new String[firebaseVisionImageLabels.size()];
                 SecondActivity.confidenceArray = new String[firebaseVisionImageLabels.size()];
-                database = Room.inMemoryDatabaseBuilder(getApplicationContext(), ImageRecogDatabase.class).allowMainThreadQueries().build();
-                databaseDAO = database.imgDAO();
+                //database = Room.inMemoryDatabaseBuilder(getApplicationContext(), ImageRecogDatabase.class).allowMainThreadQueries().build();
+                List<ImageRecogObject> deleteList = ImageRecogDatabase.getInstance().imgDAO().getAll();
+                if (deleteList.size() != 0){
+                    for (int index = 0; index < deleteList.size(); index++){
+                        ImageRecogDatabase.getInstance().imgDAO().delete(deleteList.get(index));
+                        Log.d("here", "deleting");
+                    }
+                }
                 for (int i = 0; i < firebaseVisionImageLabels.size(); i++){
                     String text = firebaseVisionImageLabels.get(i).getText(); float confidence = firebaseVisionImageLabels.get(i).getConfidence();
                     SecondActivity.vals.put(text, confidence);
+
                     ImageRecogObject thing = new ImageRecogObject();
                     thing.confidenceLevel = confidence;
                     thing.imageType = text;
-                    SecondActivity.databaseDAO.insertAll(thing);
+                    ImageRecogDatabase.getInstance().imgDAO().insertAll(thing);
                     String b = text + " " + confidence;
                     array[i] = text;
                     confidenceArray[i] = confidence + "";

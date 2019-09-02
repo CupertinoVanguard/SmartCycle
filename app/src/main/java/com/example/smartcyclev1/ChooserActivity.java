@@ -19,7 +19,7 @@ public class ChooserActivity extends Activity {
     SearchView searchView;
 
     List<DiffMaterialFactory> lister = new ArrayList<DiffMaterialFactory>();
-    static String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Wood", "Cotton", "Wool","Rubber", "Other"};
+    static String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Cardboard/Paper", "Batteries", "Electronics","Rubber", "Other"};
     int[] diffPhotoNums = {R.drawable.plastic, R.drawable.metal, R.drawable.glass, R.drawable.wood, R.drawable.cotton, R.drawable.wool, R.drawable.rubber, R.drawable.other};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,8 @@ public class ChooserActivity extends Activity {
         for (int i = 0; i < namesOfObjects.length; i++){
             lister.add(new DiffMaterialFactory(namesOfObjects[i], diffPhotoNums[i]));
         }
-        adapter = new MAAdapt(lister, ChooserActivity.this, getIntent().getExtras().getString("results"));
+
+        adapter = new MAAdapt(lister, ChooserActivity.this, getIntent().getExtras().getString("results"), true);
         listshower.setAdapter(adapter);
     }
     @Override

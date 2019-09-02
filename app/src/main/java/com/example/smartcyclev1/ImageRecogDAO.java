@@ -22,4 +22,6 @@ public interface ImageRecogDAO {
 
     @Delete
     void delete(ImageRecogObject user);
+
+
 }
