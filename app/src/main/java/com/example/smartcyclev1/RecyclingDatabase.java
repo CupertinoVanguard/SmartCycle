@@ -9,13 +9,13 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {RecyclingOptions.class}, version = 1, exportSchema = false)
 public abstract class RecyclingDatabase extends RoomDatabase {
-    public abstract RecyclingDAO metalDAO();
-    public abstract RecyclingDAO glassDAO();
-    public abstract RecyclingDAO plasticDAO();
-    public abstract RecyclingDAO electronicsDAO();
-    public abstract RecyclingDAO batteriesDAO();
-    public abstract RecyclingDAO woodDAO();
-    public abstract RecyclingDAO paperCardboardDAO();
+    public abstract RecyclingDAO recyclingDAO();
+//    public abstract RecyclingDAO glassDAO();
+//    public abstract RecyclingDAO plasticDAO();
+//    public abstract RecyclingDAO electronicsDAO();
+//    public abstract RecyclingDAO batteriesDAO();
+//    public abstract RecyclingDAO woodDAO();
+//    public abstract RecyclingDAO paperCardboardDAO();
     private static RecyclingDatabase databaseInstance;
     public static void init(Context context){
         databaseInstance = Room.inMemoryDatabaseBuilder(context, RecyclingDatabase.class).allowMainThreadQueries().build();

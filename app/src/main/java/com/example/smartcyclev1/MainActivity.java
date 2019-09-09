@@ -72,32 +72,32 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addElectronics(){
         for (int i = 0; i < produceList(electronicsR).size(); i++){
-            RecyclingDatabase.getInstance().electronicsDAO().insertAll(produceList(electronicsR).get(i));
+            RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(electronicsR).get(i));
         }
     }
     public void addGlass(){
         for (int i = 0; i < produceList(glassRs).size(); i++){
-            RecyclingDatabase.getInstance().glassDAO().insertAll(produceList(glassRs).get(i));
+            RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(glassRs).get(i));
         }
     }
     public void addBatteries(){
         for (int i = 0; i < produceList(batteries).size(); i++){
-            RecyclingDatabase.getInstance().batteriesDAO().insertAll(produceList(batteries).get(i));
+            RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(batteries).get(i));
         }
     }
     public void addPlastics(){
         for (int i = 0; i < produceList(plasticsR).size(); i++){
-            RecyclingDatabase.getInstance().plasticDAO().insertAll(produceList(plasticsR).get(i));
+            RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(plasticsR).get(i));
         }
     }
     public void addMetals(){
         for (int i = 0; i < produceList(metalR).size(); i++){
-            RecyclingDatabase.getInstance().metalDAO().insertAll(produceList(metalR).get(i));
+            RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(metalR).get(i));
         }
     }
     public void addWoods(){
         for (int i = 0; i < produceList(woodRs).size(); i++){
-            RecyclingDatabase.getInstance().woodDAO().insertAll(produceList(woodRs).get(i));
+            RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(woodRs).get(i));
         }
     }
 }

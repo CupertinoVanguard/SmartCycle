@@ -57,37 +57,37 @@ public class ProjectClassV2 extends AppCompatActivity {
             }else if (isWithinList(a, sureFireRecyclables)){
                 stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
             }else if (str.equals("Metals")){
-                if (RecyclingDatabase.getInstance().metalDAO().findByName(a) != null){
+                if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null){
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
                 }else{
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.plastic));
                 }
             }else if (str.equals("Cardboard/Paper")){
-                if (RecyclingDatabase.getInstance().metalDAO().findByName(a) == null && RecyclingDatabase.getInstance().electronicsDAO().findByName(a) == null){
+                if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
                 }else{
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.plastic));
                 }
             }else if (str.equals("Electronics")){
-                if (RecyclingDatabase.getInstance().electronicsDAO().findByName(a) != null){
+                if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null){
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
                 }else{
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.plastic));
                 }
             }else if (str.equals("Glass")){
-                if (RecyclingDatabase.getInstance().glassDAO().findByName(a) != null && RecyclingDatabase.getInstance().metalDAO().findByName(a) == null){
+                if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
                 }else{
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.plastic));
                 }
             }else if (str.equals("Plastic")){
-                if (RecyclingDatabase.getInstance().plasticDAO().findByName(a) != null){
+                if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null){
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
                 }else{
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.plastic));
                 }
             }else if (str.equals("Batteries")){
-                if (RecyclingDatabase.getInstance().metalDAO().findByName(a) == null && RecyclingDatabase.getInstance().electronicsDAO().findByName(a) == null){
+                if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.logoimage));
                 }else{
                     stuff.add(new DiffMaterialFactory(listerName.get(i) + " " + listerConfidence.get(i), R.drawable.plastic));
