@@ -71,7 +71,9 @@ public class SecondActivity extends Activity {
         confirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (contains(array, "Metal") == -1) {
+                if (array.length == 0){
+
+                }else if (contains(array, "Metal") == -1) {
                     StringBuilder sb = new StringBuilder();
                     Object[] array = SecondActivity.vals.keySet().toArray();
                     for (int i = 0; i < array.length; i++){
