@@ -49,6 +49,7 @@ public class SecondActivity extends Activity {
     static String[] array;
     static String[] confidenceArray;
     static ArrayAdapter<String> arrayAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +57,7 @@ public class SecondActivity extends Activity {
         confirmNext = findViewById(R.id.button2);
         takePic = findViewById(R.id.button3);
         imageView = findViewById(R.id.imageView);
-        resultsList = (ListView)findViewById(R.id.simpleListView);
+        resultsList = (ListView) findViewById(R.id.simpleListView);
 
         takePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,12 +72,14 @@ public class SecondActivity extends Activity {
         confirmNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (array.length == 0){
+                if (array == null || array.length == 0) {
+                    return;
+                }
 
-                }else if (contains(array, "Metal") == -1) {
+                if (contains(array, "Metal") == -1) {
                     StringBuilder sb = new StringBuilder();
                     Object[] array = SecondActivity.vals.keySet().toArray();
-                    for (int i = 0; i < array.length; i++){
+                    for (int i = 0; i < array.length; i++) {
                         sb.append(array[i].toString()).append(",");
                     }
                     SharedPreferences sharedPreferences = getSharedPreferences("Results", Context.MODE_PRIVATE);
@@ -85,7 +88,7 @@ public class SecondActivity extends Activity {
                     editor.apply();
 
                     startActivity(SecondActivity.resutlsIntent);
-                }else{
+                } else {
                     Intent a = new Intent(getBaseContext(), ProjectionActivity.class);
                     a.putExtra("Main Indicator Found", array[contains(array, "Metal")]);
 
@@ -95,9 +98,10 @@ public class SecondActivity extends Activity {
         });
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
-    public int contains(String[] array, String a){
-        for (int i = 0; i < array.length; i++){
-            if (array[i].equals(a)){
+
+    public int contains(String[] array, String a) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(a)) {
                 return i;
             }
         }
@@ -107,14 +111,14 @@ public class SecondActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == cameraRequest && resultCode == Activity.RESULT_OK){
+        if (requestCode == cameraRequest && resultCode == Activity.RESULT_OK) {
             Bitmap bMap = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(bMap);
             runDetector(bMap);
         }
     }
 
-    public void runDetector(Bitmap bitmap){
+    public void runDetector(Bitmap bitmap) {
         FirebaseVisionImage img = FirebaseVisionImage.fromBitmap(bitmap);
         FirebaseVisionImageLabeler detector = FirebaseVision.getInstance().getOnDeviceImageLabeler();
 
@@ -126,14 +130,15 @@ public class SecondActivity extends Activity {
                 SecondActivity.confidenceArray = new String[firebaseVisionImageLabels.size()];
                 //database = Room.inMemoryDatabaseBuilder(getApplicationContext(), ImageRecogDatabase.class).allowMainThreadQueries().build();
                 List<ImageRecogObject> deleteList = ImageRecogDatabase.getInstance().imgDAO().getAll();
-                if (deleteList.size() != 0){
-                    for (int index = 0; index < deleteList.size(); index++){
+                if (deleteList.size() != 0) {
+                    for (int index = 0; index < deleteList.size(); index++) {
                         ImageRecogDatabase.getInstance().imgDAO().delete(deleteList.get(index));
                         Log.d("here", "deleting");
                     }
                 }
-                for (int i = 0; i < firebaseVisionImageLabels.size(); i++){
-                    String text = firebaseVisionImageLabels.get(i).getText(); float confidence = firebaseVisionImageLabels.get(i).getConfidence();
+                for (int i = 0; i < firebaseVisionImageLabels.size(); i++) {
+                    String text = firebaseVisionImageLabels.get(i).getText();
+                    float confidence = firebaseVisionImageLabels.get(i).getConfidence();
                     SecondActivity.vals.put(text, confidence);
 
                     ImageRecogObject thing = new ImageRecogObject();
@@ -143,10 +148,9 @@ public class SecondActivity extends Activity {
                     String b = text + " " + confidence;
                     array[i] = text;
                     confidenceArray[i] = confidence + "";
-                    if (i != firebaseVisionImageLabels.size() - 1){
+                    if (i != firebaseVisionImageLabels.size() - 1) {
                         a += b + ", ";
-                    }
-                    else{
+                    } else {
                         a += b;
                     }
                 }
