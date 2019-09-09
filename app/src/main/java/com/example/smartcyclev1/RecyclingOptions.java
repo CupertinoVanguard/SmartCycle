@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class RecyclingOptions {
+
     @PrimaryKey
+    public long id;
+
     @NonNull
     public String type;
 }
