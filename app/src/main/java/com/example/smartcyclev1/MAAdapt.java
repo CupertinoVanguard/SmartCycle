@@ -40,8 +40,17 @@ public class MAAdapt extends RecyclerView.Adapter<MAAdapt.HolderView>{
         holderView.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((ImageRecogDatabase.getInstance().imgDAO().findByName("Musical instrument") != null && (lister.get(i).getName() != "Metal")) || (ImageRecogDatabase.getInstance().imgDAO().findByName("Musical instrument") != null && (lister.get(i).getName() != "Other"))){
-                    Toast.makeText(context, "Can't be " + lister.get(i).getName() +". Click another option", Toast.LENGTH_LONG).show();
+                if (ImageRecogDatabase.getInstance().imgDAO().findByName("Musical instrument") != null){
+
+                    if (lister.get(i).getName() == "Metal" || lister.get(i).getName() == "Electronics"){
+                        Intent intent = new Intent(context, ProjectClassV2.class);
+                        intent.putExtra("materialClicked", lister.get(i).getName());
+                        intent.putExtra("results", str);
+                        context.startActivity(intent);
+                        Toast.makeText(context, "click on " + lister.get(i).getName(), Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(context, lister.get(i).getName() + " does not make sense. Click on another option", Toast.LENGTH_LONG).show();
+                    }
                 }else{
                     Intent intent = new Intent(context, ProjectClassV2.class);
                     intent.putExtra("materialClicked", lister.get(i).getName());

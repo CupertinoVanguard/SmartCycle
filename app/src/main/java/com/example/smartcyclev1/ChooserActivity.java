@@ -19,7 +19,7 @@ public class ChooserActivity extends Activity {
     SearchView searchView;
 
     List<DiffMaterialFactory> lister = new ArrayList<DiffMaterialFactory>();
-    static String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Cardboard/Paper", "Batteries", "Electronics","Rubber", "Other"};
+    static String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Cardboard/Paper", "Batteries", "Electronics","Wood", "Other"};
     int[] diffPhotoNums = {R.drawable.plastic, R.drawable.metal, R.drawable.glass, R.drawable.wood, R.drawable.cotton, R.drawable.wool, R.drawable.rubber, R.drawable.other};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
