@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     String[] batteries = {"all"};
     String[] woodRs = {"Musical instrument", "Chair", "Toy", "Tableware"};
     String[] glassRs = {"Cup", "Porcelain"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,68 +36,94 @@ public class MainActivity extends AppCompatActivity {
         Context contex = getBaseContext();
         //SharedPreferences sharedPreferences = contex.getSharedPreferences("DataStuff", Context.MODE_PRIVATE);
         sharedPref = getBaseContext().getSharedPreferences("SharedFile", Context.MODE_PRIVATE);
-        Button btn2 = (Button)findViewById(R.id.invisibleButton);
-        TextView txt = (TextView)findViewById(R.id.textActual);
-        if (sharedPref.contains("status")){
+
+        if (sharedPref.getBoolean("isVisited", false)) {
+            Intent i = new Intent(getBaseContext(), SecondActivity.class);
+            startActivity(i);
+
+            finish();
+            return;
+        }
+
+        sharedPref.edit().putBoolean("isVisited", true).commit();
+
+        Button btn2 = (Button) findViewById(R.id.invisibleButton);
+        TextView txt = (TextView) findViewById(R.id.textActual);
+        if (sharedPref.contains("status")) {
             txt.setText("You already viewed all the stuff lol");
             btn2.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             txt.setText("HEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEE");
         }
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
-        addElectronics(); addBatteries(); addGlass(); addPlastics(); addWoods(); addMetals();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        addElectronics();
+        addBatteries();
+        addGlass();
+        addPlastics();
+        addWoods();
+        addMetals();
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        btn = (Button)findViewById(R.id.button);
+        btn = (Button) findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SharedPreferences sharedPref = getBaseContext().getSharedPreferences("SharedFile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("status", "visited");
+//                editor.putString("status", "visited");
                 editor.apply();
                 Intent i = new Intent(getBaseContext(), SecondActivity.class);
                 startActivity(i);
+
+                finish();
             }
         });
     }
-    private List<RecyclingOptions> produceList (String[] names){
+
+    private List<RecyclingOptions> produceList(String[] names) {
         List<RecyclingOptions> lister = new ArrayList<RecyclingOptions>();
-        for (int i = 0; i < names.length; i++){
+        for (int i = 0; i < names.length; i++) {
             RecyclingOptions a = new RecyclingOptions();
             a.type = names[i];
             lister.add(a);
-        }return lister;
+        }
+        return lister;
     }
-    public void addElectronics(){
-        for (int i = 0; i < produceList(electronicsR).size(); i++){
+
+    public void addElectronics() {
+        for (int i = 0; i < produceList(electronicsR).size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(electronicsR).get(i));
         }
     }
-    public void addGlass(){
-        for (int i = 0; i < produceList(glassRs).size(); i++){
+
+    public void addGlass() {
+        for (int i = 0; i < produceList(glassRs).size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(glassRs).get(i));
         }
     }
-    public void addBatteries(){
-        for (int i = 0; i < produceList(batteries).size(); i++){
+
+    public void addBatteries() {
+        for (int i = 0; i < produceList(batteries).size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(batteries).get(i));
         }
     }
-    public void addPlastics(){
-        for (int i = 0; i < produceList(plasticsR).size(); i++){
+
+    public void addPlastics() {
+        for (int i = 0; i < produceList(plasticsR).size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(plasticsR).get(i));
         }
     }
-    public void addMetals(){
-        for (int i = 0; i < produceList(metalR).size(); i++){
+
+    public void addMetals() {
+        for (int i = 0; i < produceList(metalR).size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(metalR).get(i));
         }
     }
-    public void addWoods(){
-        for (int i = 0; i < produceList(woodRs).size(); i++){
+
+    public void addWoods() {
+        for (int i = 0; i < produceList(woodRs).size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(woodRs).get(i));
         }
     }
