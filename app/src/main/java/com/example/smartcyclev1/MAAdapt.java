@@ -42,7 +42,7 @@ public class MAAdapt extends RecyclerView.Adapter<MAAdapt.HolderView>{
             public void onClick(View v) {
                 if (ImageRecogDatabase.getInstance().imgDAO().findByName("Musical instrument") != null){
 
-                    if (lister.get(i).getName() == "Metal" || lister.get(i).getName() == "Electronics"){
+                    if (lister.get(i).getName().equals("Metal") || lister.get(i).getName().equals("Electronics") ){
                         Intent intent = new Intent(context, ProjectClassV2.class);
                         intent.putExtra("materialClicked", lister.get(i).getName());
                         intent.putExtra("results", str);

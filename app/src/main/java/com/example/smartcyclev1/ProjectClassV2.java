@@ -1,11 +1,14 @@
 package com.example.smartcyclev1;
 
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,13 +16,13 @@ import com.google.android.gms.common.util.Strings;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import android.net.Uri;
 public class ProjectClassV2 extends AppCompatActivity {
     CustomItem2 adapter;
     String[] notApplicableList = {"Muscle", "Bird", "Flesh", "Human", "Dog", "Fun", "Selfie", "Room", "Bumper", "Pattern", "Cat", "Monochrome", "Eyelash", "Foot", "Ear", "Insect", "Sitting"};
     String[] customResponses = {"Not Applicable", "Yes", "No", "More information necessary"};
-    String[] sureFireRecyclables = {"Paper"};
-
+    String[] sureFireRecyclables = {"Paper", "Jeans", "Textile"};
+    Button learnMore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +37,16 @@ public class ProjectClassV2 extends AppCompatActivity {
         TextView t2 = findViewById(R.id.textView7);
         TextView t3 = findViewById(R.id.textView9);
         ImageView imgViewer = (ImageView)findViewById(R.id.imageView2);
+        learnMore = (Button)findViewById(R.id.button5);
 
+        learnMore.setOnClickListener(new View.OnClickListener() {
+                                         @Override
+                                         public void onClick(View v) {
+                                             Uri uriUrl = Uri.parse("https://www.epa.gov/recycle/recycling-basics");
+                                             Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                                             startActivity(launchBrowser);
+                                         }
+                                     });
         List<Float> listerConfidence = new ArrayList<Float>();
         List<ImageRecogObject> listerImageRecogObs = ImageRecogDatabase.getInstance().imgDAO().getAll();
         for (int j = 0; j < listerImageRecogObs.size(); j++){
@@ -77,54 +89,65 @@ public class ProjectClassV2 extends AppCompatActivity {
     }
 
     private boolean recyclableFactory(String a, String str){
-        if (isWithinList(a, notApplicableList)){
-            return false;
-        }else if (isWithinList(a, sureFireRecyclables)){
-            return true;
-        }else if (str.equals("Metals")){
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null){
-                return true;
-            }else{
+        List<RecyclingOptions> fullResults = new ArrayList<>();
+        fullResults = RecyclingDatabase.getInstance().recyclingDAO().findByName(a);
+        if (fullResults != null) {
+            if (isWithinList(a, notApplicableList)){
                 return false;
+            }else if (isWithinList(a, sureFireRecyclables)){
+                return true;
+            }else if (str.equals("Metal")){
+                if (isPresent("Metal", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (str.equals("Cardboard/Paper")){
+                if (!isPresent("Metal", fullResults) && !isPresent("Electronics", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (str.equals("Electronics")){
+                if (isPresent("Electronics", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (str.equals("Glass")){
+                if (isPresent("Glass", fullResults)  && !isPresent("Metal", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (str.equals("Plastic")){
+                if (isPresent("Plastic", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (str.equals("Batteries")){
+                if (!isPresent("Batteries", fullResults) && !isPresent("Electronics", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
             }
-        }else if (str.equals("Cardboard/Paper")){
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
-                return true;
-            }else{
-                return false;
-            }
-        }else if (str.equals("Electronics")){
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null){
-                return true;
-            }else{
-                return false;
-            }
-        }else if (str.equals("Glass")){
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
-                return true;
-            }else{
-                return false;
-            }
-        }else if (str.equals("Plastic")){
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) != null){
-                return true;
-            }else{
-                return false;
-            }
-        }else if (str.equals("Batteries")){
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        else if (str.equals("Wood")){//Need to recheck conditions for this - need to change the DAO though?!
-            if (RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null && RecyclingDatabase.getInstance().recyclingDAO().findByName(a) == null){
-                return true;
-            }else{
-                return false;
+            else if (str.equals("Wood")){//Need to recheck conditions for this - need to change the DAO though?!
+                if (!isPresent("Metal", fullResults) && isPresent("Wood", fullResults)){
+                    return true;
+                }else{
+                    return false;
+                }
             }
         }
         return false;
+    }
+    private boolean isPresent(String a, List<RecyclingOptions> lister){
+        for (int i = 0; i < lister.size(); i++){
+            if (lister.get(i).type.equals("a")){
+                return true;
+            }
+        }return false;
     }
 }

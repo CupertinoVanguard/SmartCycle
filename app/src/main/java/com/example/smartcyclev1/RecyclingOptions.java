@@ -12,5 +12,8 @@ public class RecyclingOptions {
     public long id;
 
     @NonNull
+    public String name;
+
+    @NonNull
     public String type;
 }

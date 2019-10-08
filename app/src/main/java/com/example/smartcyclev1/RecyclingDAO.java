@@ -13,7 +13,7 @@ public interface RecyclingDAO {
     List<RecyclingOptions> getAll();
 
     @Query("SELECT * FROM recyclingoptions WHERE type LIKE :imageT LIMIT 1")
-    RecyclingOptions findByName(String imageT);
+    List<RecyclingOptions> findByName(String imageT);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(RecyclingOptions... users);

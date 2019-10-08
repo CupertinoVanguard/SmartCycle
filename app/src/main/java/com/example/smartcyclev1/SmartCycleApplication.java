@@ -11,5 +11,6 @@ public class SmartCycleApplication extends Application {
         ImageRecogDatabase.init(this);
         RecyclingDatabase.init(this);
         SharedPreferences  sharedPref = getBaseContext().getSharedPreferences("SharedFile", Context.MODE_PRIVATE);
+
     }
 }
