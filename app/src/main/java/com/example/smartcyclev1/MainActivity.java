@@ -47,6 +47,7 @@ public class MainActivity extends AppIntro {
         //SharedPreferences sharedPreferences = contex.getSharedPreferences("DataStuff", Context.MODE_PRIVATE);
         sharedPref = getBaseContext().getSharedPreferences("SharedFile", Context.MODE_PRIVATE);
         //sharedPref.getBoolean()
+        //change the newInstance method
         for (int index = 0; index < slideTitles.length; index++){addSlide(AppIntroFragment.newInstance(slideTitles[index], descriptions[index], slideImages[index], Color.parseColor(mainBackgroundColor)));}
         showSkipButton(false);
         setProgressButtonEnabled(true);
@@ -68,35 +69,7 @@ public class MainActivity extends AppIntro {
         addPlastics();
         addWoods();
         addMetals();
-        /*Button btn2 = (Button) findViewById(R.id.invisibleButton);
-        TextView txt = (TextView) findViewById(R.id.textActual);
-        if (sharedPref.contains("status")) {
-            txt.setText("You already viewed all the stuff lol");
-            btn2.setVisibility(View.VISIBLE);
-        } else {
-            txt.setText("HEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEEHEHEHEHEEE");
-        }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
-        addElectronics();
-        addBatteries();
-        addGlass();
-        addPlastics();
-        addWoods();
-        addMetals();
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        btn = (Button) findViewById(R.id.button);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), SecondActivity.class);
-                startActivity(i);
 
-                finish();
-            }
-        });*/
     }
 
     private List<RecyclingOptions> produceList(String[] names, String typer) {
@@ -109,7 +82,7 @@ public class MainActivity extends AppIntro {
         }
         return lister;
     }
-
+    //use the new insertAll method
     public void addElectronics() {
         for (int i = 0; i < produceList(electronicsR, "Electronics").size(); i++) {
             RecyclingDatabase.getInstance().recyclingDAO().insertAll(produceList(electronicsR, "Electronics").get(i));

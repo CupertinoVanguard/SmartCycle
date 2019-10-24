@@ -13,7 +13,6 @@
         <activity android:name=".ProjectClassV2" />
         <activity android:name=".ListView" />
         <activity android:name=".LaunchScreenActivity" />
-        <activity android:name=".ProjectionActivity" />
 
         <activity android:name=".ChooserActivity" />
         <activity android:name=".SecondActivity" />

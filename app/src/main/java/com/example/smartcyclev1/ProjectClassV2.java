@@ -19,7 +19,7 @@ import java.util.List;
 import android.net.Uri;
 public class ProjectClassV2 extends AppCompatActivity {
     CustomItem2 adapter;
-    String[] notApplicableList = {"Muscle", "Bird", "Flesh", "Human", "Dog", "Fun", "Selfie", "Room", "Bumper", "Pattern", "Cat", "Monochrome", "Eyelash", "Foot", "Ear", "Insect", "Sitting"};
+    String[] notApplicableList = {"Muscle", "Bird", "Flesh", "Human", "Dog", "Fun", "Selfie", "Room", "Bumper", "Pattern", "Cat", "Monochrome", "Eyelash", "Foot", "Ear", "Insect", "Sitting", "Space"};
     String[] customResponses = {"Not Applicable", "Yes", "No", "More information necessary"};
     String[] sureFireRecyclables = {"Paper", "Jeans", "Textile"};
     Button learnMore;

@@ -18,6 +18,9 @@ public interface RecyclingDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(RecyclingOptions... users);
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertAll(List<RecyclingOptions> users);
+
     @Delete
     void delete(RecyclingOptions user);
 }

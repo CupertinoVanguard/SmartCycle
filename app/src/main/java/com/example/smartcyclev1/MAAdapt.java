@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//better names for variables
 public class MAAdapt extends RecyclerView.Adapter<MAAdapt.HolderView>{
     private List<DiffMaterialFactory> lister;
     private Context context;

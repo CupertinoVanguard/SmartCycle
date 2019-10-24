@@ -34,16 +34,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-
+//remove the static, remove Second Activity, remove all the arrays as a static. Static will be there all the way until the end
+//try assets maybe
 public class SecondActivity extends Activity {
     Button confirmNext;
     Button takePic;
     ImageView imageView;
     TextView textView;
     static HashMap<String, Float> vals = new HashMap<>();
-    List<String> completeList = new ArrayList<String>();
     private static final int cameraRequest = 1888;
-    String finalResults = "";
     static Intent resutlsIntent;
     ListView resultsList;
     static String[] array;
@@ -75,8 +74,6 @@ public class SecondActivity extends Activity {
                 if (array == null || array.length == 0) {
                     return;
                 }
-
-                if (contains(array, "Metal") == -1) {
                     StringBuilder sb = new StringBuilder();
                     Object[] array = SecondActivity.vals.keySet().toArray();
                     for (int i = 0; i < array.length; i++) {
@@ -88,12 +85,7 @@ public class SecondActivity extends Activity {
                     editor.apply();
 
                     startActivity(SecondActivity.resutlsIntent);
-                } else {
-                    Intent a = new Intent(getBaseContext(), ProjectionActivity.class);
-                    a.putExtra("Main Indicator Found", array[contains(array, "Metal")]);
 
-                    startActivity(a);
-                }
             }
         });
         //SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -156,6 +148,7 @@ public class SecondActivity extends Activity {
                 }
 
                 SecondActivity.resutlsIntent = new Intent(getBaseContext(), ChooserActivity.class);
+                //You can send it as an arrayList
                 SecondActivity.resutlsIntent.putExtra("results", a);
                 SecondActivity.arrayAdapter = new ArrayAdapter<String>(getBaseContext(), R.layout.activity_list_view, R.id.textViewList, SecondActivity.array);
                 resultsList.setAdapter(arrayAdapter);

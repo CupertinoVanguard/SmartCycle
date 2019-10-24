@@ -20,7 +20,7 @@ public class ChooserActivity extends Activity {
 
     List<DiffMaterialFactory> lister = new ArrayList<DiffMaterialFactory>();
     static String[] namesOfObjects = {"Plastic", "Metal", "Glass", "Cardboard/Paper", "Batteries", "Electronics","Wood", "Other"};
-    int[] diffPhotoNums = {R.drawable.plastic, R.drawable.metal, R.drawable.glass, R.drawable.wood, R.drawable.cotton, R.drawable.wool, R.drawable.rubber, R.drawable.other};
+    int[] diffPhotoNums = {R.drawable.plastic, R.drawable.metal, R.drawable.glass, R.drawable.cardandpaper, R.drawable.batteries, R.drawable.electronics, R.drawable.wood, R.drawable.other};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
