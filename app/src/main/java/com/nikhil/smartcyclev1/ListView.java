@@ -1,14 +1,13 @@
-package com.example.smartcyclev1;
+package com.nikhil.smartcyclev1;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LaunchScreenActivity extends Activity {
+public class ListView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch_screen);
+        setContentView(R.layout.activity_list_view);
     }
 }

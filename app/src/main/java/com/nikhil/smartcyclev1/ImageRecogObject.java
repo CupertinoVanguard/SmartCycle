@@ -1,4 +1,4 @@
-package com.example.smartcyclev1;
+package com.nikhil.smartcyclev1;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

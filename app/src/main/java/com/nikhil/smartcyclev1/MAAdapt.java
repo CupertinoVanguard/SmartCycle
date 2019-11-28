@@ -1,9 +1,7 @@
-package com.example.smartcyclev1;
+package com.nikhil.smartcyclev1;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

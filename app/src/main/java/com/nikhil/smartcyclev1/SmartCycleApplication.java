@@ -1,4 +1,4 @@
-package com.example.smartcyclev1;
+package com.nikhil.smartcyclev1;
 
 import android.app.Application;
 import android.content.Context;

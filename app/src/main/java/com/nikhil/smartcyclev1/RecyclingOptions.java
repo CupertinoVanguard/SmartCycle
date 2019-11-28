@@ -1,7 +1,6 @@
-package com.example.smartcyclev1;
+package com.nikhil.smartcyclev1;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
