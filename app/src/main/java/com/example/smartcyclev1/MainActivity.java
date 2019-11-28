@@ -35,7 +35,7 @@ public class MainActivity extends AppIntro {
     String[] woodRs = {"Musical instrument", "Chair", "Toy", "Tableware"};
     String[] glassRs = {"Cup", "Porcelain"};
     String[] slideTitles = {"WELCOME TO SmartCycle", "SNAP", "CHOOSE", "FIND OUT!"};
-    String[] descriptions = {"", "BEEPY BOYS", "SNAPPY BOY", "Massive Boy"};
+    String[] descriptions = {"", "Take a quick snap of the object(s) you wish to recycle", "In order to further refine the classification, choose the closest personal classification of the object's type.", "Find out if the object or objects are recyclable and learn more about the process of recycling"};
     int[] slideImages = {R.drawable.mainlogo, R.drawable.snap, R.drawable.chooserimage, R.drawable.logoimage};
     String mainBackgroundColor = "#FFB37A24";
     @Override
